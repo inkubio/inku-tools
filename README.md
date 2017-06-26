@@ -1,7 +1,6 @@
 # InkuTools
-Tools for bio people
 
-A command line tool for batch cropping and renaming pictures to be used on the inkubio website.
+A command line tool for batch cropping and renaming pictures to be used on the Inkubio website. Crops to a centered picture of a persons face using OpenCV and PIL.
 
 Dependencies in requirements.txt which can be installed quickly with "pip3 install -r requirements.txt"
 
