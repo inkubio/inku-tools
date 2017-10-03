@@ -109,6 +109,7 @@ class GUI:
     def start(self, event=None):
         # Initialize folders and pictures
         self.skipped = []
+        self.index = 0
 
         folder = self.input_entry.get()
         savefolder = self.output_entry.get()
@@ -125,6 +126,13 @@ class GUI:
 
     def next(self, event=None):
         # Show next picture to be renamed and cropped
+        person = self.name_entry.get()
+        if person.lower() in ["skip", "fail", "pass", "no", "none"]:
+            self.skipped.append(self.filepaths[self.index - 1])
+        else:
+            filename = "_".join(person.split()) + ".jpg"
+            self.cropped.save(os.path.join(self.output_entry.get(), filename))
+
         if self.index == self.set_length - 1:
             if self.skipped:
                 print("Failed to find a face in following images:")
@@ -132,13 +140,6 @@ class GUI:
                     print(skip)
             self.status_label.config(text="All done.")
             return
-
-        person = self.name_entry.get()
-        if person.lower() in ["skip", "fail", "pass", "no", "none"]:
-            self.skipped.append(self.filepaths[self.index - 1])
-        else:
-            filename = "_".join(person.split()) + ".jpg"
-            self.cropped.save(os.path.join(self.output_entry.get(), filename))
 
         self._show_image()
 
