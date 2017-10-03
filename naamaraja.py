@@ -22,6 +22,7 @@ class GUI:
         tk.Label(master, text="Input path: ").grid(row=0, sticky=tk.E)
         tk.Label(master, text="Output path: ").grid(row=1, sticky=tk.E)
 
+        # Input and output folders
         self.input_entry = tk.Entry(master)
         self.input_entry.grid(row=0, column=1, sticky=tk.W)
         self.input_entry.insert(0, "test")
@@ -29,13 +30,16 @@ class GUI:
         self.output_entry.grid(row=1, column=1, sticky=tk.W)
         self.output_entry.insert(0, "out")
 
+        # Canvas for pictures
         self.canvas = tk.Canvas(master, width=512, height=512)
         self.canvas.grid(row=3, columnspan=2)
 
+        # Entry for name of person in picture
         tk.Label(master, text="Name of person: ").grid(row=4, sticky=tk.E)
         self.name_entry = tk.Entry(master)
         self.name_entry.grid(row=4, column=1, sticky=tk.W)
 
+        # Control buttons
         self.start_button = tk.Button(master, text="Start", command=self.start)
         self.start_button.grid(row=5)
         self.next_button = tk.Button(master, text="Next picture", command=self.next)
@@ -82,6 +86,7 @@ class GUI:
         img.thumbnail(size, Image.ANTIALIAS)
 
     def _show_image(self):
+        # Analyze, crop and show the next image
         img = cv2.imread(self.filepaths[self.index])
         self.status_label.config(text=self.filepaths[self.index])
         pil_img = self._cv2pil(img)
@@ -102,6 +107,7 @@ class GUI:
         self.name_entry.focus()
 
     def start(self, event=None):
+        # Initialize folders and pictures
         self.skipped = []
 
         folder = self.input_entry.get()
@@ -118,6 +124,7 @@ class GUI:
         self._show_image()
 
     def next(self, event=None):
+        # Show next picture to be renamed and cropped
         if self.index == self.set_length - 1:
             if self.skipped:
                 print("Failed to find a face in following images:")
@@ -136,6 +143,7 @@ class GUI:
         self._show_image()
 
 
-root = tk.Tk()
-my_gui = GUI(root)
-root.mainloop()
+if __name__ == "__main__":
+    root = tk.Tk()
+    my_gui = GUI(root)
+    root.mainloop()
