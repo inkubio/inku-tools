@@ -67,10 +67,11 @@ class GUI:
 
     def _crop_image(self, img, x, y, width):
         # Crops a PIL image
+        vertical_shift = 300
         topleft_x = x - width
-        topleft_y = y - width if y - width > 0 else 0
+        topleft_y = y - width + vertical_shift if y - width + vertical_shift > 0 else 0
         bottomright_x = x + width * 2
-        bottomright_y = y + width * 2 if y + width * 2 < img.size[1] else img.size[1]
+        bottomright_y = y + width * 2 + vertical_shift if y + width * 2 + vertical_shift < img.size[1] else img.size[1]
 
         cropped = img.crop(
             (topleft_x,
