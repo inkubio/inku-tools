@@ -1,3 +1,5 @@
 numpy
 pillow
 opencv-python
+tqdm
+face_recognition
